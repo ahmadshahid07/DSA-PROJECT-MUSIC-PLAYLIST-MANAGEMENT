@@ -3,26 +3,19 @@
 #include <string>
 
 using namespace std;
-
-// Structure for a song in the playlist
 struct Song {
     string title;
     string artist;
-    int duration; // duration in seconds
+    int duration; 
     Song* next;
 };
-
-// Class for the Playlist Manager
 class PlaylistManager {
 private:
-    Song* head; // head of the linked list
-
+    Song* head; 
 public:
     PlaylistManager() {
         head = nullptr;
     }
-
-    // Function to add a song to the playlist
     void addSong(string title, string artist, int duration) {
         Song* newSong = new Song();
         newSong->title = title;
@@ -41,8 +34,6 @@ public:
         }
         cout << "Song added to the playlist." << endl;
     }
-
-    // Function to display the playlist
     void displayPlaylist() {
         if (head == nullptr) {
             cout << "The playlist is empty." << endl;
@@ -55,8 +46,6 @@ public:
             temp = temp->next;
         }
     }
-
-    // Function to delete a song from the playlist
     void deleteSong(string title) {
         if (head == nullptr) {
             cout << "The playlist is empty. Cannot delete." << endl;
@@ -88,8 +77,6 @@ public:
         delete current;
         cout << "Song '" << title << "' deleted." << endl;
     }
-
-    // Function to save the playlist to a file
     void savePlaylistToFile(string filename) {
         ofstream file(filename);
         if (!file) {
@@ -108,8 +95,6 @@ public:
         file.close();
         cout << "Playlist saved to file." << endl;
     }
-
-    // Function to load the playlist from a file
     void loadPlaylistFromFile(string filename) {
         ifstream file(filename);
         if (!file) {
@@ -123,15 +108,13 @@ public:
         while (getline(file, title)) {
             getline(file, artist);
             file >> duration;
-            file.ignore(); // To skip the newline after the duration
+            file.ignore(); 
             addSong(title, artist, duration);
         }
 
         file.close();
         cout << "Playlist loaded from file." << endl;
     }
-
-    // Destructor to clean up memory
     ~PlaylistManager() {
         Song* current = head;
         while (current != nullptr) {
@@ -141,8 +124,6 @@ public:
         }
     }
 };
-
-// Main function to demonstrate the playlist manager
 int main() {
     PlaylistManager manager;
     int choice;
@@ -179,7 +160,7 @@ int main() {
             manager.savePlaylistToFile(filename);
             break;
         case 5:
-            manager.savePlaylistToFile(filename);  // Save playlist before exiting
+            manager.savePlaylistToFile(filename); 
             cout << "Exiting program." << endl;
             break;
         default:
